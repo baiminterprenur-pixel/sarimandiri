@@ -1,73 +1,66 @@
 const chatBox = document.getElementById("chat-box");
+const userInput = document.getElementById("userInput");
 
-chatBox.innerHTML += `
-  <div class="message bot">
-    👋 Halo, saya Aira AI BUMDes Sari Mandiri. Ada yang bisa saya bantu?
-  </div>
-`;
+/* PESAN AWAL */
+window.onload = () => {
 
-document
-  .getElementById("userInput")
-  .addEventListener("keypress",function(event){
+  addMessage(
+    "👋 Halo, saya Aira AI BUMDes Sari Mandiri. Ada yang bisa saya bantu?",
+    "bot"
+  );
 
-    if(event.key === "Enter"){
-      sendMessage();
-    }
+};
+
+/* KIRIM PESAN */
+function sendMessage(){
+
+  const text = userInput.value.trim();
+
+  if(text === "") return;
+
+  addMessage(text, "user");
+
+  setTimeout(() => {
+
+    addMessage(
+      "Maaf, AI masih dalam pengembangan 😊",
+      "bot"
+    );
+
+  }, 700);
+
+  userInput.value = "";
+
+}
+
+/* TAMPILKAN PESAN */
+function addMessage(text, sender){
+
+  const msg = document.createElement("div");
+
+  msg.classList.add("message");
+  msg.classList.add(sender);
+
+  msg.innerText = text;
+
+  chatBox.appendChild(msg);
+
+  chatBox.scrollTop = chatBox.scrollHeight;
+
+}
+
+/* ENTER UNTUK KIRIM */
+userInput.addEventListener("keypress", function(e){
+
+  if(e.key === "Enter"){
+    sendMessage();
+  }
 
 });
 
-async function sendMessage(){
-
-  const input = document.getElementById("userInput");
-
-  const userText = input.value.trim();
-
-  if(!userText) return;
-
-  chatBox.innerHTML += `
-    <div class="message user">${userText}</div>
-  `;
-
-  input.value = "";
-
-  chatBox.scrollTop = chatBox.scrollHeight;
-
-  try{
-
-    const response = await fetch("/api/chat",{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify({
-        message:userText
-      })
-    });
-
-    const data = await response.json();
-
-    chatBox.innerHTML += `
-      <div class="message bot">${data.reply}</div>
-    `;
-
-  }catch(error){
-
-    chatBox.innerHTML += `
-      <div class="message bot">
-        Maaf, server sedang bermasalah.
-      </div>
-    `;
-
-  }
-
-  chatBox.scrollTop = chatBox.scrollHeight;
-}
-
+/* HAPUS CHAT */
 function clearChat(){
 
-  chatBox.innerHTML = `
-    <div class="message bot">
-      👋 Chat berhasil dihapus.
-    </div>
-  `;
+  chatBox.innerHTML = "";
+
 }
