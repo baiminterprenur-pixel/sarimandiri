@@ -3,40 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aira BUMDes</title>
+  <title>Aira AI BUMDes</title>
 
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <div class="container">
 
+  <!-- HEADER -->
   <div class="header">
 
-    <img src="logo.png" class="logo">
+    <!-- LOGO -->
+    <img 
+      src="./logo.png" 
+      alt="Logo Aira AI"
+      class="logo"
+    >
 
-    <div>
+    <!-- TEXT -->
+    <div class="header-text">
       <h1>Aira AI</h1>
       <p>BUMDes Sari Mandiri</p>
     </div>
 
   </div>
 
+  <!-- CHAT -->
   <div id="chat-box"></div>
 
+  <!-- INPUT -->
   <div class="input-area">
 
     <input
       type="text"
       id="userInput"
       placeholder="Tulis pesan..."
+      autocomplete="off"
     >
 
-    <button onclick="sendMessage()">➤</button>
+    <button onclick="sendMessage()">
+      ➤
+    </button>
 
   </div>
 
-  <button class="clear-btn" onclick="clearChat()">
+  <!-- CLEAR -->
+  <button 
+    class="clear-btn" 
+    onclick="clearChat()"
+  >
     Hapus Chat
   </button>
 
