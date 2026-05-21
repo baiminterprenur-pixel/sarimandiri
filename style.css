@@ -37,14 +37,17 @@ body{
   gap:15px;
 }
 
-/* LOGO */
-.logo{
+/* ICON ROBOT */
+.robot-icon{
   width:70px;
   height:70px;
   border-radius:50%;
-  object-fit:cover;
   background:white;
-  display:block;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:38px;
+  flex-shrink:0;
 }
 
 /* TEXT */
@@ -117,7 +120,7 @@ body{
   cursor:pointer;
 }
 
-/* CLEAR */
+/* CLEAR BUTTON */
 .clear-btn{
   margin:15px;
   padding:15px;
@@ -145,22 +148,10 @@ body{
     font-size:14px;
   }
 
-  .logo{
+  .robot-icon{
     width:55px;
-
-    /* ICON ROBOT */
-.robot-icon{
-  width:70px;
-  height:70px;
-  border-radius:50%;
-  background:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:38px;
-  flex-shrink:0;
-}
     height:55px;
+    font-size:30px;
   }
 
 }
