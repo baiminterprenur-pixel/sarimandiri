@@ -1,6 +1,6 @@
 body{
   margin:0;
-  font-family:Arial, sans-serif;
+  font-family:Arial,sans-serif;
   background:#e8f5e9;
   display:flex;
   justify-content:center;
@@ -11,28 +11,47 @@ body{
 .container{
   width:95%;
   max-width:500px;
-  height:90vh;
+  height:92vh;
   background:white;
-  border-radius:20px;
+  border-radius:25px;
   overflow:hidden;
-  box-shadow:0 10px 30px rgba(0,0,0,0.15);
+  box-shadow:0 10px 30px rgba(0,0,0,0.2);
   display:flex;
   flex-direction:column;
 }
 
-h1{
-  margin:0;
-  padding:20px;
+.header{
   background:#2e7d32;
   color:white;
-  text-align:center;
+  display:flex;
+  align-items:center;
+  padding:15px;
+}
+
+.logo{
+  width:60px;
+  height:60px;
+  object-fit:cover;
+  border-radius:50%;
+  margin-right:15px;
+  background:white;
+}
+
+.header h1{
+  margin:0;
   font-size:22px;
+}
+
+.header p{
+  margin:2px 0 0;
+  font-size:14px;
+  opacity:0.9;
 }
 
 #chat-box{
   flex:1;
-  padding:15px;
   overflow-y:auto;
+  padding:15px;
   background:#f9f9f9;
 }
 
@@ -91,6 +110,15 @@ button{
 
 button:hover{
   background:#1b5e20;
+}
+
+.clear-btn{
+  margin:10px;
+  background:#d32f2f;
+}
+
+.clear-btn:hover{
+  background:#b71c1c;
 }
 
 @keyframes fadeIn{
