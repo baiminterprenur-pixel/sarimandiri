@@ -1,31 +1,73 @@
-function sendMessage(){
+const chatBox = document.getElementById("chat-box");
 
-  let input = document.getElementById("userInput");
-  let chatBox = document.getElementById("chat-box");
+chatBox.innerHTML += `
+  <div class="message bot">
+    👋 Halo, saya Aira AI BUMDes Sari Mandiri. Ada yang bisa saya bantu?
+  </div>
+`;
 
-  let text = input.value;
+document
+  .getElementById("userInput")
+  .addEventListener("keypress",function(event){
 
-  if(text === "") return;
+    if(event.key === "Enter"){
+      sendMessage();
+    }
+
+});
+
+async function sendMessage(){
+
+  const input = document.getElementById("userInput");
+
+  const userText = input.value.trim();
+
+  if(!userText) return;
 
   chatBox.innerHTML += `
-    <p><b>Kamu:</b> ${text}</p>
-  `;
-
-  let reply = "Maaf, saya belum memahami pertanyaan.";
-
-  if(text.toLowerCase().includes("bumdes")){
-    reply = "BUMDes Sari Mandiri membantu ekonomi masyarakat desa.";
-  }
-
-  if(text.toLowerCase().includes("halo")){
-    reply = "Halo 👋 Ada yang bisa saya bantu?";
-  }
-
-  chatBox.innerHTML += `
-    <p><b>Aira:</b> ${reply}</p>
+    <div class="message user">${userText}</div>
   `;
 
   input.value = "";
 
   chatBox.scrollTop = chatBox.scrollHeight;
+
+  try{
+
+    const response = await fetch("/api/chat",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+        message:userText
+      })
+    });
+
+    const data = await response.json();
+
+    chatBox.innerHTML += `
+      <div class="message bot">${data.reply}</div>
+    `;
+
+  }catch(error){
+
+    chatBox.innerHTML += `
+      <div class="message bot">
+        Maaf, server sedang bermasalah.
+      </div>
+    `;
+
+  }
+
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function clearChat(){
+
+  chatBox.innerHTML = `
+    <div class="message bot">
+      👋 Chat berhasil dihapus.
+    </div>
+  `;
 }
