@@ -1,2 +1,164 @@
+<style>
+/* BOX CHAT */
+#floating-chat {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 370px;
+  height: 600px;
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  z-index: 999999;
+  font-family: Arial, sans-serif;
+}
 
-<img src="<div class="separator" style="clear: both;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhaihQQu80EXmZqNV_BjnRJ24gVZnaPTr_yyMBfOuUOwuNQIQd02v49-_Rd9_IcoPVIIsdeuGXDrRd9EnduHVagSkzty1p9D6WDW-x_P9JJqv_ss773XtsiFqgAcXumfKDQNKaVtQf1hP5DNquKcp9YWeXEJ7Lii8Fyg9Ca4Q8ruZmxBNpKymBHcVKBX2k/s584/WhatsApp%20Image%202026-05-18%20at%2009.49.07.jpeg" style="display: block; padding: 1em 0; text-align: center; "><img alt="" border="0" width="320" data-original-height="427" data-original-width="584" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhaihQQu80EXmZqNV_BjnRJ24gVZnaPTr_yyMBfOuUOwuNQIQd02v49-_Rd9_IcoPVIIsdeuGXDrRd9EnduHVagSkzty1p9D6WDW-x_P9JJqv_ss773XtsiFqgAcXumfKDQNKaVtQf1hP5DNquKcp9YWeXEJ7Lii8Fyg9Ca4Q8ruZmxBNpKymBHcVKBX2k/s320/WhatsApp%20Image%202026-05-18%20at%2009.49.07.jpeg"/></a></div>" class="logo">
+/* HEADER */
+#chat-header {
+  background: #0a8f3d;
+  color: white;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  cursor: move;
+}
+
+/* LOGO */
+.logo {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: white;
+  margin-right: 10px;
+}
+
+/* KIRI HEADER */
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+/* JUDUL */
+.header-text h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.header-text p {
+  margin: 0;
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+/* TOMBOL */
+.chat-buttons button {
+  border: none;
+  background: rgba(255,255,255,0.2);
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  margin-left: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* ISI CHAT */
+#chat-content {
+  width: 100%;
+  height: calc(100% - 60px);
+}
+
+#chat-content iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* MINIMIZE */
+.minimized #chat-content {
+  display: none;
+}
+
+.minimized {
+  height: 60px !important;
+}
+</style>
+
+<!-- FLOATING CHAT -->
+<div id="floating-chat">
+
+  <!-- HEADER -->
+  <div id="chat-header">
+
+    <div class="header-left">
+
+      <!-- LOGO -->
+      <img 
+      src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhaihQQu80EXmZqNV_BjnRJ24gVZnaPTr_yyMBfOuUOwuNQIQd02v49-_Rd9_IcoPVIIsdeuGXDrRd9EnduHVagSkzty1p9D6WDW-x_P9JJqv_ss773XtsiFqgAcXumfKDQNKaVtQf1hP5DNquKcp9YWeXEJ7Lii8Fyg9Ca4Q8ruZmxBNpKymBHcVKBX2k/s320/WhatsApp%20Image%202026-05-18%20at%2009.49.07.jpeg"
+      class="logo">
+
+      <div class="header-text">
+        <h3>Aira AI</h3>
+        <p>BUMDes Sari Mandiri</p>
+      </div>
+
+    </div>
+
+    <!-- TOMBOL -->
+    <div class="chat-buttons">
+      <button onclick="minimizeChat()">—</button>
+      <button onclick="closeChat()">✕</button>
+    </div>
+
+  </div>
+
+  <!-- CHAT -->
+  <div id="chat-content">
+    <iframe src="https://sarimandiri.vercel.app/"></iframe>
+  </div>
+
+</div>
+
+<script>
+const chat = document.getElementById("floating-chat");
+const header = document.getElementById("chat-header");
+
+let isDragging = false;
+let offsetX = 0;
+let offsetY = 0;
+
+/* DRAG */
+header.onmousedown = function(e){
+  isDragging = true;
+  offsetX = e.clientX - chat.offsetLeft;
+  offsetY = e.clientY - chat.offsetTop;
+}
+
+document.onmousemove = function(e){
+  if(isDragging){
+    chat.style.left = (e.clientX - offsetX) + "px";
+    chat.style.top = (e.clientY - offsetY) + "px";
+    chat.style.right = "auto";
+    chat.style.bottom = "auto";
+  }
+}
+
+document.onmouseup = function(){
+  isDragging = false;
+}
+
+/* MINIMIZE */
+function minimizeChat(){
+  chat.classList.toggle("minimized");
+}
+
+/* CLOSE */
+function closeChat(){
+  chat.style.display = "none";
+}
+</script>
